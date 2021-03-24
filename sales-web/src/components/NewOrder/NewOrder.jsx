@@ -25,6 +25,7 @@ import {
   getShippingMethods,
   getShippingDetails,
   getOffDays,
+  createOrder,
 } from "../../api/ordersAPI";
 import useStyles from "../../styles";
 import { Link } from "react-router-dom";
@@ -78,15 +79,15 @@ const NewOrder = () => {
   const storeProducts = () => {
     let arr = [...productArr, productLst];
     setProductArr(arr);
+    setFormData({
+      ...formData,
+      productsList: arr,
+    });
   };
 
   const handleSubmit = (event) => {
-    console.log("hola");
     event.preventDefault();
-    setFormData({
-      ...formData,
-      productsList: productArr,
-    });
+    createOrder(formData);
   };
 
   return (
@@ -112,15 +113,15 @@ const NewOrder = () => {
               <Grid className={classes.gridContainer} container spacing={4}>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="store">Store</InputLabel>
+                    <InputLabel htmlFor="sellerStore">Store</InputLabel>
                     <Input
-                      id="store"
-                      name="store"
+                      id="sellerStore"
+                      name="sellerStore"
                       type="text"
-                      aria-describedby="store-helper"
+                      aria-describedby="sellerStore-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="store-helper">
+                    <FormHelperText id="sellerStore-helper">
                       Seller Store
                     </FormHelperText>
                   </FormControl>
@@ -153,15 +154,17 @@ const NewOrder = () => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="orderNumber">Order Number</InputLabel>
+                    <InputLabel htmlFor="externalOrderNumber">
+                      Order Number
+                    </InputLabel>
                     <Input
-                      id="orderNumber"
-                      name="orderNumber"
+                      id="externalOrderNumber"
+                      name="externalOrderNumber"
                       type="text"
-                      aria-describedby="orderNumber-helper"
+                      aria-describedby="externalOrderNumber-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="orderNumber-helper">
+                    <FormHelperText id="externalOrderNumber-helper">
                       External Order Number
                     </FormHelperText>
                   </FormControl>
@@ -172,45 +175,47 @@ const NewOrder = () => {
               <Grid className={classes.gridContainer} container spacing={4}>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="buyerName">Full Name</InputLabel>
+                    <InputLabel htmlFor="buyerFullName">Full Name</InputLabel>
                     <Input
-                      id="buyerName"
-                      name="buyerName"
+                      id="buyerFullName"
+                      name="buyerFullName"
                       type="text"
-                      aria-describedby="buyerName-helper"
+                      aria-describedby="buyerFullName-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="buyerName-helper">
+                    <FormHelperText id="buyerFullName-helper">
                       Buyer Full Name
                     </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="phone">Phone Number</InputLabel>
+                    <InputLabel htmlFor="buyerPhoneNumber">
+                      Phone Number
+                    </InputLabel>
                     <Input
-                      id="phone"
-                      name="phone"
+                      id="buyerPhoneNumber"
+                      name="buyerPhoneNumber"
                       type="text"
-                      aria-describedby="phone-helper"
+                      aria-describedby="buyerPhoneNumber-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="phone-helper">
+                    <FormHelperText id="buyerPhoneNumber-helper">
                       Buyer Phone Number
                     </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="email">Email</InputLabel>
+                    <InputLabel htmlFor="buyerEmail">Email</InputLabel>
                     <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      aria-describedby="email-helper"
+                      id="buyerEmail"
+                      name="buyerEmail"
+                      type="buyerEmail"
+                      aria-describedby="buyerEmail-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="email-helper">
+                    <FormHelperText id="buyerEmail-helper">
                       Buyer Email
                     </FormHelperText>
                   </FormControl>
@@ -232,45 +237,45 @@ const NewOrder = () => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="city">City</InputLabel>
+                    <InputLabel htmlFor="shippingCity">City</InputLabel>
                     <Input
-                      id="city"
-                      name="city"
+                      id="shippingCity"
+                      name="shippingCity"
                       type="text"
-                      aria-describedby="city-helper"
+                      aria-describedby="shippingCity-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="city-helper">
+                    <FormHelperText id="shippingCity-helper">
                       Shipping City
                     </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="Region">Region</InputLabel>
+                    <InputLabel htmlFor="shippingRegion">Region</InputLabel>
                     <Input
-                      id="Region"
-                      name="Region"
+                      id="shippingRegion"
+                      name="shippingRegion"
                       type="text"
-                      aria-describedby="Region-helper"
+                      aria-describedby="shippingRegion-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="Region-helper">
+                    <FormHelperText id="shippingRegion-helper">
                       Shipping Region
                     </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="country">Country</InputLabel>
+                    <InputLabel htmlFor="shippingCountry">Country</InputLabel>
                     <Input
-                      id="country"
-                      name="country"
+                      id="shippingCountry"
+                      name="shippingCountry"
                       type="text"
-                      aria-describedby="country-helper"
+                      aria-describedby="shippingCountry-helper"
                       onChange={handleChange}
                     />
-                    <FormHelperText id="country-helper">
+                    <FormHelperText id="shippingCountry-helper">
                       Shipping Country
                     </FormHelperText>
                   </FormControl>
@@ -296,30 +301,30 @@ const NewOrder = () => {
                 </Grid>
                 <Grid item xs={12} sm={3} md={3}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="amount">Amount</InputLabel>
+                    <InputLabel htmlFor="productQty">Amount</InputLabel>
                     <Input
-                      id="amount"
-                      name="amount"
+                      id="productQty"
+                      name="productQty"
                       type="number"
-                      aria-describedby="amount-helper"
+                      aria-describedby="productQty-helper"
                       onChange={handleProducts}
                     />
-                    <FormHelperText id="amount-helper">
+                    <FormHelperText id="productQty-helper">
                       Product Quantity
                     </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="weight">Weight</InputLabel>
+                    <InputLabel htmlFor="productWeight">Weight</InputLabel>
                     <Input
-                      id="weight"
-                      name="weight"
+                      id="productWeight"
+                      name="productWeight"
                       type="number"
-                      aria-describedby="weight-helper"
+                      aria-describedby="productWeight-helper"
                       onChange={handleProducts}
                     />
-                    <FormHelperText id="weight-helper">
+                    <FormHelperText id="productWeight-helper">
                       Product Weight
                     </FormHelperText>
                   </FormControl>
@@ -373,14 +378,14 @@ const NewOrder = () => {
                               align="center"
                               scope="row"
                             >
-                              {row.amount}
+                              {row.productQty}
                             </TableCell>
                             <TableCell
                               component="th"
                               align="center"
                               scope="row"
                             >
-                              {row.weight}
+                              {row.productWeight}
                             </TableCell>
                           </TableRow>
                         ))}

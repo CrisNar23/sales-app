@@ -10,6 +10,6 @@ export const getOffDays = async () => axios.get(`${url}shippings/off-days`);
 
 export const getOrders = async () => axios.get(`${url}orders`);
 
-// export const createCandidate = (newCandidate) => axios.post(url, newCandidate);
+export const createOrder = async (newCandidate) => axios.post(`${url}orders`, newCandidate);
 
 

@@ -96,9 +96,14 @@ export const createOrder = async (req, res) => {
   if (order === undefined) res.status(400).json({ message: "Bad Request" });
 
   try {
+    let modifiedOrder = {
+      ...order,
+      createdAt: currentDate(),
+      internalOrderNumber: orderNumber(),
+    };
     // Get localStorage item with the key Name
     const response = await JSON.parse(localStorage.getItem("orders"));
-    const newOrder = [...response, order];
+    const newOrder = [...response, modifiedOrder];
 
     // Status validation
     response.length !== 0
