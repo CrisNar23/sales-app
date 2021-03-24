@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -32,6 +33,7 @@ import { Link } from "react-router-dom";
 
 const NewOrder = () => {
   const classes = useStyles();
+  // const navigate = useNavigate()
 
   const [shippingMethod, setShippingMethod] = useState("");
   const [shippingMethodsLst, setShippingMethodsLst] = useState([]);
@@ -88,6 +90,7 @@ const NewOrder = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     createOrder(formData);
+    // navigate("/");
   };
 
   return (

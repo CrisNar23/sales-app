@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3000/";
+const url = "http://localhost:3001/";
 
 export const getShippingMethods = async () => axios.get(`${url}shippings`);
 

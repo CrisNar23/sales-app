@@ -7,7 +7,7 @@ import orderRoutes from "./routes/orders.routes.js";
 const app = express();
 
 // Application Port
-const port = process.env.port || 3000;
+const port = process.env.port || 3001;
 
 app.use(cors());
 
